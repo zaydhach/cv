@@ -28,10 +28,10 @@ public class PersonValidator implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Size(min = 3, max = 50, message = "Nom: min 3 car, max 50 car")
+	@Size(min = 3, max = 50, message = " min 3 car, max 50 car")
 	private String name;
 
-	@Size(min = 3, max = 50, message = "Prenom: min 3 car, max 50 car")
+	@Size(min = 3, max = 50, message = " min 3 car, max 50 car")
 	private String firstName;
 
 	@Pattern(regexp = "[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -44,7 +44,7 @@ public class PersonValidator implements Serializable {
 	@Past
 	private Date birthday;
 
-	@Size(min = 3, max = 50, message = "Mot de passe: min 3 car, max 50 car")
+	@Size(min = 3, max = 50, message = " min 3 car, max 50 car")
 	private String password;
 
 	public Date getBirthday() {

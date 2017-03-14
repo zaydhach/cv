@@ -16,11 +16,11 @@
 				<c:set var="personValidator" value="#{auth.validatePerson}" />
 
 				<h:form>
-					<p:growl id="msgs" showDetail="true" />
+<!-- 					<p:growl id="msgs" showDetail="true" /> -->
 
 					<p:panel header="Formulaire ">
 
-						<h:panelGrid columns="3" cellpadding="5">
+						<p:panelGrid columns="3" cellpadding="5">
 							<h:outputLabel for="name" value="Nom:" />
 							<p:inputText id="name" value="#{personValidator.name}"
 								label="Nom: " required="true" requiredMessage="Veuillez saisir un nom"/>
@@ -47,22 +47,22 @@
 							<p:message for="web" />
 
 
-						</h:panelGrid>
+						</p:panelGrid>
 
 						<p:commandButton 
 							action="#{auth.updatePerson()}" value="modifier" ajax="false"
 							icon="ui-icon-check" validateClient="true" update="msgs" />
 
 					</p:panel>
-					<p:dialog modal="true" resizable="false" header="Values"
-						widgetVar="dlg" showEffect="fold">
-						<p:panelGrid id="display" columns="2" columnClasses="label,value">
-							<h:outputText value="Date de naissance:" />
-							<h:outputText value="#{personValidator.birthday}">
-								<f:convertDateTime pattern="dd/MM/yyyy" />
-							</h:outputText>
-						</p:panelGrid>
-					</p:dialog>
+<!-- 					<p:dialog modal="true" resizable="false" header="Values" -->
+<!-- 						widgetVar="dlg" showEffect="fold"> -->
+<!-- 						<p:panelGrid id="display" columns="2" columnClasses="label,value"> -->
+<!-- 							<h:outputText value="Date de naissance:" /> -->
+<!-- 							<h:outputText value="#{personValidator.birthday}"> -->
+<!-- 								<f:convertDateTime pattern="dd/MM/yyyy" /> -->
+<!-- 							</h:outputText> -->
+<!-- 						</p:panelGrid> -->
+<!-- 					</p:dialog> -->
 				</h:form>
 			</p:layoutUnit>
 		</ui:define>

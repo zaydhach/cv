@@ -11,10 +11,10 @@
 
 
 <c:set var="user" value="#{auth.authPerson}" />
-		<c:set var="p" value="#{person.thePerson}" />
-		<c:choose>
-		<c:when test="${user.id ne null}">
-	<p:layoutUnit id="menu">
+<c:set var="p" value="#{person.thePerson}" />
+<c:choose>
+	<c:when test="${user.id ne null}">
+		<p:layoutUnit id="menu">
 Menu
 	
 		
@@ -33,15 +33,18 @@ Menu
 					</h:form></li>
 
 			</ul>
-			</p:layoutUnit>
-</c:when>
-<!-- 		<c:otherwise> -->
-<!-- 			<ul> -->
-<!-- 				<li><h:link outcome="bye">bye</h:link></li> -->
-<!-- 				<li><h:link outcome="showPersons">toutes les personnes</h:link></li> -->
-<!-- 				<li><h:link outcome="subscribePerson">s'inscrire</h:link></li> -->
-<!-- 			</ul> -->
-<!-- 		</c:otherwise> -->
+		</p:layoutUnit>
+	</c:when>
+	<c:otherwise>
+		<p:layoutUnit id="menu">
+Menu
+			<ul>
+				<li><h:link outcome="bye">bye</h:link></li>
+				<li><h:link outcome="showPersons">toutes les personnes</h:link></li>
+				<li><h:link outcome="subscribePerson">s'inscrire</h:link></li>
+			</ul>
+		</p:layoutUnit>
+	</c:otherwise>
 </c:choose>
 
 

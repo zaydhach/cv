@@ -20,7 +20,7 @@
 
 					<p:panel header="Formulaire d'inscription">
 
-						<h:panelGrid columns="3" cellpadding="5">
+						<p:panelGrid columns="3" cellpadding="5">
 							<h:outputLabel for="name" value="Nom:" />
 							<p:inputText id="name" value="#{personValidator.name}"
 								label="Nom: " required="true" requiredMessage="Veuillez saisir un nom"/>
@@ -51,7 +51,7 @@
 								label="Mot de passe" required="true" requiredMessage="Veuillez saisir un mot de passe"/>
 							<p:message for="password" />
 
-						</h:panelGrid>
+						</p:panelGrid>
 
 						<p:commandButton 
 							actionListener="#{person.save()}" value="S'inscrire" ajax="true"

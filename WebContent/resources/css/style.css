@@ -4,7 +4,7 @@ h1 {
 
 table {
 	border-collapse: collapse;
-	border: 1px solid black;
+	border: none;
 }
 
 td, th {
@@ -12,6 +12,10 @@ td, th {
 	padding: 3px;
 }
 
+.ui-panelgrid>*>tr,
+.ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+}
 
 #page {
 	float: left;
@@ -54,7 +58,7 @@ td, th {
 }
 
 #login {
-	border:#2c4359;
+	border:none;
 	background-color:#2c4359;
 	display:relative;
 	float: right;

@@ -37,7 +37,7 @@
 				<c:choose>
 					<c:when test="${u.id eq null}">
 						<div id="login">
-							<h:panelGrid id="panelGrid" border="0" columns="4" cellpadding="5" >
+							<p:panelGrid id="panelGrid" border="0" columns="4" cellpadding="5" >
 
 								<p:message for="email" />
 								<h:outputLabel for="email" value="Email:" />
@@ -49,7 +49,7 @@
 								<p:password id="password" value="#{auth.password}" />
 								<p:commandButton action="#{auth.authentification()}"
 									value="Connexion" icon="ui-icon-check" ajax="false" />
-							</h:panelGrid>
+							</p:panelGrid>
 
 						</div>
 					</c:when>
