@@ -41,28 +41,30 @@ public class AuthManager {
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void updatePerson(Person person) {
 		if (em.find(Person.class, person.getId()) != null)
-			
+
 			em.merge(person);
 
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void saveActivity(Activity activity) {
-		if (em.find(Activity.class, activity.getId()) == null) {
-
-			em.persist(activity);
-			System.out.println("persist");
-		} else {
-			em.merge(activity);
-			System.out.println("merge");
-		}
-
+	public Activity addActivity(Activity activity) {
+		em.persist(activity);
+		em.flush();
+		System.out.println("dddddddddddddddddddddddd"+activity.getId());
+		
+		return this.findActivity(activity);
 	}
 
-	public void removeActivity(Activity activity) {
-		System.out.println("dkhal");
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public Activity updateActivity(Activity activity) {
+		return em.merge(activity);
+	}
+
+	public Activity removeActivity(Activity activity) {
 		Activity foundActivity = em.find(Activity.class, activity.getId());
 		em.remove(foundActivity);
+		
+		return foundActivity;
 
 	}
 
@@ -94,7 +96,6 @@ public class AuthManager {
 		}
 		return null;
 	}
-
 
 	public Person logout() {
 		authenPerson = null;

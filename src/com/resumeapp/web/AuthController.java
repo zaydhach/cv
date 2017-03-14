@@ -31,9 +31,9 @@ public class AuthController {
 	private PersonValidator validatePerson = new PersonValidator();
 	private ActivityValidator validateActivity = new ActivityValidator();
 	private List<Nature> nature = new ArrayList<Nature>();
-	private Person authPerson,thePerson;
+	private Person authPerson, thePerson;
 	private Activity activity;
-	private List<Activity> activities,findedActivities;
+	private List<Activity> activities, findedActivities;
 
 	public PersonValidator getValidatePerson() {
 		return validatePerson;
@@ -121,25 +121,44 @@ public class AuthController {
 
 	public String authentification() {
 
-		System.out.println(email + "##" + password);
-
 		if (am.login(email, password) != null) {
 			authPerson = am.login(email, password);
 			activities = am.showActivities(getAuthPerson());
 			authPerson.setActivities(activities);
 
 			return "authHome?faces-redirect=true";
-		} else
-			return "login?faces-redirect=true";
+		}
+		return "showPersons?faces-redirect=true";
 
 	}
 
-
-
 	public String addActivity() {
-		
+
 		Activity activity = new Activity();
-		if (validateActivity.getTitle() != null) {
+		if (validateActivity.getId()== null) {
+			activity.setTitle(validateActivity.getTitle());
+			activity.setDescription(validateActivity.getDescription());
+			activity.setNature(validateActivity.getNature());
+			activity.setYear(validateActivity.getYear());
+			activity.setWebAddress(validateActivity.getWebAddress());
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "ajout d'activité OK", "");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			System.out.println(authPerson.getEmail());
+			activity.setPerson(authPerson);
+			System.out.println("*****************************" + activity.getId());
+			am.addActivity(activity);
+			activities = pm.showActivities(authPerson);
+
+			
+		}
+
+		return "authHome?faces-redirect=true";
+	}
+	
+	public String updateActivity() {
+
+		Activity activity = new Activity();
+		if (validateActivity.getId()!= null) {
 			activity.setTitle(validateActivity.getTitle());
 			activity.setDescription(validateActivity.getDescription());
 			// activity.setPerson(validateActivity.getPerson());
@@ -152,16 +171,16 @@ public class AuthController {
 			System.out.println(authPerson.getEmail());
 			activity.setPerson(authPerson);
 			System.out.println("*****************************" + activity.getId());
-			am.saveActivity(activity);
+			am.updateActivity(activity);
 
-			return "authHome?faces-redirect=true";
+			
 		}
 
-		return null;
+		return "authHome?faces-redirect=true";
 	}
 
 	public String chargeActivity(Activity activity) {
-		
+
 		this.activity = activity;
 		this.validateActivity.setDescription(this.activity.getDescription());
 		this.validateActivity.setNature(this.activity.getNature());
@@ -170,13 +189,13 @@ public class AuthController {
 		this.validateActivity.setId(this.activity.getId());
 		this.validateActivity.setWebAddress(this.activity.getWebAddress());
 		System.out.println("------------------->" + this.activity.getId());
-		return "addActivity?faces-redirect=true";
+		return "updateActivity?faces-redirect=true";
 	}
 
 	public String deleteActivity(Activity activity) {
 
 		am.removeActivity(activity);
-
+		activities = pm.showActivities(authPerson);
 		return "authHome?faces-redirect=true";
 
 	}
@@ -195,8 +214,6 @@ public class AuthController {
 		validatePerson.setPassword(authPerson.getPassword());
 		validatePerson.setName(authPerson.getName());
 		validatePerson.setWebAddress(authPerson.getWebAddress());
-		
-		
 
 		return "updateProfile?faces-redirect=true";
 
@@ -218,15 +235,16 @@ public class AuthController {
 		return "authHome?faces-redirect=true";
 
 	}
+
 	public String leave() {
 		setAuthPerson(am.logout());
 		return "showPersons?faces-redirect=true";
 	}
-	
+
 	public String showResume() {
 		thePerson = pm.showPerson(authPerson);
 		findedActivities = pm.showActivities(authPerson);
-		System.out.println("___________________-------------------"+thePerson.getEmail());
+		System.out.println("___________________-------------------" + thePerson.getEmail());
 		return "showResume?faces-redirect=true";
 	}
 

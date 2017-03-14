@@ -6,7 +6,7 @@
 
     <persistence-unit name="myMySQLBase" transaction-type="JTA">
         <non-jta-data-source>myDS</non-jta-data-source>
-            <class>com.resumeapp.entities.Activity</class>
+        <class>com.resumeapp.entities.Activity</class>
         <class>com.resumeapp.entities.Person</class>
         <properties>
             <property name="openjpa.jdbc.SynchronizeMappings"
