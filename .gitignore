@@ -1,7 +1,3 @@
 /target/
 /conf/openejb.xml
 /WebContent/WEB-INF/resources.xml
-.classpath
-.gitignore
-.project
-.settings/
