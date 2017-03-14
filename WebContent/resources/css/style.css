@@ -76,12 +76,13 @@ td, th {
 
 #menu {
 	float: right;
+	position: fixed;
 	width: 150px;
 	border: solid 1px gray;
 	padding: 5px;
 	color: blue;
 	background-color: white;
-	margin-left: 20px;
+	margin-left: 86%;
 }
 
 #content {
