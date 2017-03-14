@@ -1,0 +1,17 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+          http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+    version="1.0">
+
+    <persistence-unit name="myMySQLBase" transaction-type="JTA">
+        <non-jta-data-source>myDS</non-jta-data-source>
+            <class>com.resumeapp.entities.Activity</class>
+        <class>com.resumeapp.entities.Person</class>
+        <properties>
+            <property name="openjpa.jdbc.SynchronizeMappings"
+                value="buildSchema(ForeignKeys=true)" />
+        </properties>
+    </persistence-unit>
+
+</persistence>

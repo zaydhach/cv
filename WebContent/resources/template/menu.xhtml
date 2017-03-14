@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<c:set var="user" value="#{auth.authPerson}" />
+		<c:set var="p" value="#{person.thePerson}" />
+		<c:choose>
+		<c:when test="${user.id ne null}">
+	<p:layoutUnit id="menu">
+Menu
+	
+		
+
+			<ul>
+				<li><h:link outcome="showPersons">liste des personnes</h:link></li>
+				<li><h:link outcome="authHome">Gérer mon cv</h:link></li>
+				<li><h:link outcome="addActivity">ajouter des activitées</h:link></li>
+				<li><h:form>
+						<h:commandLink action="#{auth.updateProfile()}"
+							value="modifier votre profil" />
+					</h:form></li>
+				<li><h:form>
+						<h:commandLink action="#{auth.desactivateProfil()}"
+							value="désactivez votre profile" />
+					</h:form></li>
+
+			</ul>
+			</p:layoutUnit>
+</c:when>
+<!-- 		<c:otherwise> -->
+<!-- 			<ul> -->
+<!-- 				<li><h:link outcome="bye">bye</h:link></li> -->
+<!-- 				<li><h:link outcome="showPersons">toutes les personnes</h:link></li> -->
+<!-- 				<li><h:link outcome="subscribePerson">s'inscrire</h:link></li> -->
+<!-- 			</ul> -->
+<!-- 		</c:otherwise> -->
+</c:choose>
+
+
+</html>
