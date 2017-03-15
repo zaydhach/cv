@@ -12,21 +12,20 @@ td, th {
 	padding: 3px;
 }
 
-.ui-panelgrid>*>tr,
-.ui-panelgrid .ui-panelgrid-cell {
-    border: none;
+.ui-panelgrid>*>tr, .ui-panelgrid .ui-panelgrid-cell {
+	border: none;
 }
 
 #page {
 	float: left;
-	width: 86%;
+	width: 84%;
 	margin: 0 auto;
 }
 
 #header {
 	display: flex;
-	flex-direction: row; 
-	justify-content : space-between; 
+	flex-direction: row;
+	justify-content: space-between;
 	border: #2c4359;
 	padding: 5px;
 	width: large;
@@ -41,9 +40,8 @@ td, th {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	padding:auto;
+	padding: auto;
 }
-
 
 #titre {
 	display: relative;
@@ -58,18 +56,18 @@ td, th {
 }
 
 #login {
-	border:none;
-	background-color:#2c4359;
-	display:relative;
+	border: none;
+	background-color: #2c4359;
+	display: relative;
 	float: right;
 }
 
-#panelGrid{
-	border:none;
+#panelGrid {
+	border: none;
 }
 
-#logout{
-	background-color:#2c4359;
+#logout {
+	background-color: #2c4359;
 	text-align: right;
 	padding: 5px 0px;
 }
@@ -77,12 +75,11 @@ td, th {
 #menu {
 	float: right;
 	position: fixed;
-	width: 150px;
-	border: solid 1px gray;
-	padding: 5px;
-	color: blue;
-	background-color: white;
-	margin-left: 86%;
+	width: 17%;
+	border: none;
+	color: #ff0000;
+	background-color: #ff0000;
+	margin-left: 83%;
 }
 
 #content {
