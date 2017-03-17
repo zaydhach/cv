@@ -12,20 +12,8 @@ import javax.validation.constraints.Size;
 
 import com.resumeapp.entities.Person;
 
-/**
- * 
- * @author Ibrahima SEYE
- * @author Kandel ACHIRAFI
- * 
- *         This class is used to define constraints for person edition
- */
-
 @ManagedBean
 public class PersonValidator implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Size(min = 3, max = 50, message = " min 3 car, max 50 car")
