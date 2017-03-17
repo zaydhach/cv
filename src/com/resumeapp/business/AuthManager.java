@@ -14,12 +14,13 @@ import com.resumeapp.entities.Activity;
 import com.resumeapp.entities.Person;
 
 @Stateful
-public class AuthManager {
+public class AuthManager implements IAuthManager {
 
 	@PersistenceContext(unitName = "myMySQLBase")
 	private EntityManager em;
 	private Person authenPerson = new Person();
 
+	@Override
 	public Person login(String email, String password) throws NoResultException {
 		
 		Query query = null;
@@ -39,6 +40,7 @@ public class AuthManager {
 
 	}
 
+	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void updatePerson(Person person) {
 		if (em.find(Person.class, person.getId()) != null)
@@ -47,6 +49,7 @@ public class AuthManager {
 
 	}
 
+	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public Activity addActivity(Activity activity) {
 		em.persist(activity);
@@ -56,11 +59,13 @@ public class AuthManager {
 		return this.findActivity(activity);
 	}
 
+	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public Activity updateActivity(Activity activity) {
 		return em.merge(activity);
 	}
 
+	@Override
 	public Activity removeActivity(Activity activity) {
 		Activity foundActivity = em.find(Activity.class, activity.getId());
 		em.remove(foundActivity);
@@ -68,19 +73,22 @@ public class AuthManager {
 		return foundActivity;
 
 	}
-
+	
+	@Override
 	public Activity findActivity(Activity activity) {
 
 		Activity foundActivity = em.find(Activity.class, activity.getId());
 		return foundActivity;
 
 	}
-
+	
+	@Override
 	public void removePerson(Person person) {
 		Person foundPerson = em.find(Person.class, person.getId());
 		em.remove(foundPerson);
 	}
-
+	
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Activity> showActivities(Person p) {
 		Query query = null;
@@ -97,7 +105,8 @@ public class AuthManager {
 		}
 		return null;
 	}
-
+	
+	@Override
 	public Person logout() {
 		authenPerson = null;
 		return authenPerson;

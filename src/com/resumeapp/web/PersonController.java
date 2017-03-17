@@ -1,5 +1,6 @@
 package com.resumeapp.web;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import com.resumeapp.business.IPersonManager;
 import com.resumeapp.business.PersonManager;
 import com.resumeapp.entities.Activity;
 import com.resumeapp.entities.Person;
@@ -22,10 +24,15 @@ import com.resumeapp.entities.Person;
  */
 @ManagedBean(name = "person")
 @SessionScoped
-public class PersonController {
+public class PersonController implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@EJB
-	PersonManager pm;
+	IPersonManager pm;
 
 	PersonValidator validatePerson = new PersonValidator();
 	private String name, title;
@@ -124,8 +131,7 @@ public class PersonController {
 		thePerson.setWebAddress(validatePerson.getWebAddress());
 		thePerson.setEmail(validatePerson.getEmail());
 		thePerson.setPassword(pm.MD5(validatePerson.getPassword()));
-		try{
-			pm.addPerson(thePerson);
+			if(pm.addPerson(thePerson)!=null){
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Inscription OK", "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			validatePerson.setName(null);
@@ -134,12 +140,20 @@ public class PersonController {
 			validatePerson.setEmail(null);
 			validatePerson.setWebAddress(null);
 			validatePerson.setPassword(null);
-			}catch(org.apache.openjpa.persistence.EntityExistsException e){
+			return "welcome?faces-redirect=true";
+			}else{
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Votre e-mail existe deja", "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-
-		return "welcome?faces-redirect=true";
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			validatePerson.setName(null);
+			validatePerson.setFirstName(null);
+			validatePerson.setBirthday(null);
+			validatePerson.setEmail(null);
+			validatePerson.setWebAddress(null);
+			validatePerson.setPassword(null);
+			return "showPersons?faces-redirect=true";
+			}
+		
 	}
 
 	public String showResume(Person person) {
