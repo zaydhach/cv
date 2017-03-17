@@ -26,16 +26,25 @@ import com.resumeapp.entities.Person;
 @SessionScoped
 public class PersonController implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@EJB
 	IPersonManager pm;
-
 	PersonValidator validatePerson = new PersonValidator();
 	private String name, title;
+	Person thePerson = new Person();
+	List<Person> findedPersons;
+	Activity act = new Activity();
+	List<Activity> findedActivities;
+	
+
+	Activity foundActivity = new Activity();
+	@PostConstruct
+	public void init() {
+		System.out.println("Create " + this);
+		if (pm == null)
+			System.out.println("NULL");
+	}
 
 	public String getTitle() {
 		return title;
@@ -53,7 +62,6 @@ public class PersonController implements Serializable {
 		this.name = name;
 	}
 
-	Activity foundActivity = new Activity();
 
 	public Activity getFoundActivity() {
 		return foundActivity;
@@ -62,12 +70,6 @@ public class PersonController implements Serializable {
 	public void setFoundActivity(Activity foundActivity) {
 		this.foundActivity = foundActivity;
 	}
-
-	Person thePerson = new Person();
-	List<Person> findedPersons;
-
-	Activity act = new Activity();
-	List<Activity> findedActivities;
 
 	public PersonValidator getValidatePerson() {
 		return validatePerson;
@@ -85,13 +87,6 @@ public class PersonController implements Serializable {
 		this.findedActivities = findedActivities;
 	}
 
-	@PostConstruct
-	public void init() {
-		System.out.println("Create " + this);
-		if (pm == null)
-			System.out.println("NULL");
-	}
-
 	public Person getThePerson() {
 		return thePerson;
 	}
@@ -105,13 +100,10 @@ public class PersonController implements Serializable {
 	}
 
 	public List<Activity> getActivities() {
-
 		if (thePerson != null) {
 			return pm.showActivities(thePerson);
 		}
-
 		return null;
-
 	}
 
 	public void setFindedPersons(List<Person> findedPersons) {
@@ -153,7 +145,6 @@ public class PersonController implements Serializable {
 			validatePerson.setPassword(null);
 			return "showPersons?faces-redirect=true";
 			}
-		
 	}
 
 	public String showResume(Person person) {
@@ -172,9 +163,7 @@ public class PersonController implements Serializable {
 	}
 
 	public String findByTitle() {
-
 		setFindedPersons(pm.findByTitle(title));
-
 		return "searchResults?faces-redirect=true";
 	}
 

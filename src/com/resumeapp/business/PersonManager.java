@@ -36,8 +36,7 @@ public class PersonManager implements IPersonManager {
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public Person addPerson(Person person) throws org.apache.openjpa.persistence.EntityExistsException {
-
-		if (em.find(Person.class, person.getEmail()) == null) {
+		if (em.find(Person.class, person.getId()) == null) {
 			em.persist(person);
 		} else {
 			return null;
@@ -48,7 +47,6 @@ public class PersonManager implements IPersonManager {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Person> showPersons() {
-		System.out.println("parapapapapapapaapap");
 		Query query = em.createQuery("SELECT p FROM Person p");
 		List<Person> persons = query.getResultList();
 		return persons;
@@ -56,20 +54,20 @@ public class PersonManager implements IPersonManager {
 
 	@Override
 	public Person showPerson(Person person) {
-		Query query = em.createQuery("SELECT p FROM Person p WHERE p.id=" + person.getId() + "");
+		Query query = em.createQuery("SELECT p FROM Person p WHERE p.id=:id")
+				.setParameter("id", person.getId());
 		if (query.getResultList().size() == 0)
 			return null;
-
 		Person shownPerson = (Person) query.getSingleResult();
 		return shownPerson;
 	}
 
 	@Override
 	public List<Person> findPerson(String nom) {
-		Query query = em.createQuery("SELECT p FROM Person p WHERE p.name LIKE '%" + nom + "%'");
+		Query query = em.createQuery("SELECT p FROM Person p WHERE p.name LIKE :nom")
+				.setParameter("nom", "%"+nom+"%");
 		if (query.getResultList().size() == 0)
 			return null;
-
 		List<Person> shownPerson = (List<Person>) query.getResultList();
 		return shownPerson;
 	}
@@ -79,14 +77,13 @@ public class PersonManager implements IPersonManager {
 	public List<Activity> showActivities(Person p) {
 		Query query = null;
 		if (p.getId() != null) {
-
 			try {
-				query = em.createQuery("SELECT a FROM Activity a WHERE a.person.id=" + p.getId() + "");
+				query = em.createQuery("SELECT a FROM Activity a WHERE a.person.id=:id")
+				.setParameter("id", p.getId());
 			} catch (Exception e) {
 			}
 			if (query != null) {
 				List<Activity> activities = query.getResultList();
-
 				return activities;
 			}
 		}
@@ -98,8 +95,8 @@ public class PersonManager implements IPersonManager {
 		Query query = null;
 		System.out.println("Find by title method");
 		try {
-			query = em.createQuery("SELECT DISTINCT p FROM Person p,Activity a WHERE a.title LIKE'%" + title
-					+ "%' AND  a.person.id=p.id");
+			query = em.createQuery("SELECT DISTINCT p FROM Person p,Activity a WHERE a.title LIKE :title")
+				.setParameter("title", "%"+title+"%");
 
 		} catch (NoResultException e) {
 			return null;
@@ -111,10 +108,8 @@ public class PersonManager implements IPersonManager {
 			System.out.println(persons.size());
 
 			return persons;
-
 		}
 		return null;
-
 	}
 
 	@Override
