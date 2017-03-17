@@ -32,8 +32,8 @@
 							<p:message for="firstName" />
 
 							<p:outputLabel for="birthday" value="Date de naissance:" />
-							<p:calendar id="birthday" value="#{personValidator.birthday}"
-								locale="fr" navigator="true" pattern="dd-MM-yyyy" />
+							<p:calendar id="birthday" value="#{personValidator.birthday}" mask="true"
+								locale="fr" navigator="true" pattern="dd-MM-yyyy" yearRange="c-50:c+50"/>
 							<p:message for="birthday" />
 
 							<h:outputLabel for="email" value="Email:" />

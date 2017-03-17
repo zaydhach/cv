@@ -1,3 +1,5 @@
 /target/
 /conf/openejb.xml
 /WebContent/WEB-INF/resources.xml
+*.class
+target/m2e-wtp/web-resources/META-INF/maven/P2JEE/P2JEE/pom.properties
