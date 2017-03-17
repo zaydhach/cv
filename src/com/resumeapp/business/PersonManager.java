@@ -18,7 +18,7 @@ import com.resumeapp.entities.Person;
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
-public class PersonManager {
+public class PersonManager implements IPersonManager {
 
 	@PersistenceContext(unitName = "myMySQLBase")
 	private EntityManager em;
@@ -33,21 +33,28 @@ public class PersonManager {
 		System.out.println("Stopping " + this);
 	}
 
+	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public Person addPerson(Person person) throws org.apache.openjpa.persistence.EntityExistsException  {
-		if (em.find(Person.class, person.getId()) == null) {
-				em.persist(person);			
+	public Person addPerson(Person person) throws org.apache.openjpa.persistence.EntityExistsException {
+
+		if (em.find(Person.class, person.getEmail()) == null) {
+			em.persist(person);
+		} else {
+			return null;
 		}
 		return person;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Person> showPersons() {
+		System.out.println("parapapapapapapaapap");
 		Query query = em.createQuery("SELECT p FROM Person p");
 		List<Person> persons = query.getResultList();
 		return persons;
 	}
 
+	@Override
 	public Person showPerson(Person person) {
 		Query query = em.createQuery("SELECT p FROM Person p WHERE p.id=" + person.getId() + "");
 		if (query.getResultList().size() == 0)
@@ -57,6 +64,7 @@ public class PersonManager {
 		return shownPerson;
 	}
 
+	@Override
 	public List<Person> findPerson(String nom) {
 		Query query = em.createQuery("SELECT p FROM Person p WHERE p.name LIKE '%" + nom + "%'");
 		if (query.getResultList().size() == 0)
@@ -66,6 +74,7 @@ public class PersonManager {
 		return shownPerson;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Activity> showActivities(Person p) {
 		Query query = null;
@@ -84,6 +93,7 @@ public class PersonManager {
 		return null;
 	}
 
+	@Override
 	public List<Person> findByTitle(String title) {
 		Query query = null;
 		System.out.println("Find by title method");
@@ -107,6 +117,7 @@ public class PersonManager {
 
 	}
 
+	@Override
 	public String MD5(String md5) {
 		try {
 			java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");

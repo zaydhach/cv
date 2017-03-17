@@ -4,6 +4,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 
 import com.resumeapp.business.AuthManager;
+import com.resumeapp.business.IAuthManager;
+import com.resumeapp.business.IPersonManager;
 import com.resumeapp.business.PersonManager;
 import com.resumeapp.entities.Activity;
 import com.resumeapp.entities.Nature;
@@ -20,13 +23,18 @@ import com.resumeapp.entities.Person;
 
 @ManagedBean(name = "auth")
 @SessionScoped
-public class AuthController {
+public class AuthController implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@EJB
-	AuthManager am;
+	IAuthManager am;
 
 	@EJB
-	PersonManager pm;
+	IPersonManager pm;
 
 	private PersonValidator validatePerson = new PersonValidator();
 	private ActivityValidator validateActivity = new ActivityValidator();
@@ -121,13 +129,15 @@ public class AuthController {
 
 	public String authentification() {
 		password=pm.MD5(password);
-		if (am.login(email, password) != null) {
+		if (am.login(email, password)!= null) {
 			authPerson = am.login(email, password);
 			activities = am.showActivities(getAuthPerson());
 			authPerson.setActivities(activities);
-
+			System.out.println("babobaboabbo");
 			return "authHome?faces-redirect=true";
 		}
+		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Inscription OK", "");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return "showPersons?faces-redirect=true";
 
 	}
@@ -220,7 +230,6 @@ public class AuthController {
 	}
 
 	public String updatePerson() {
-
 		Person person = new Person();
 		person.setBirthday(validatePerson.getBirthday());
 		person.setEmail(validatePerson.getEmail());
@@ -228,12 +237,9 @@ public class AuthController {
 		person.setName(validatePerson.getName());
 		person.setWebAddress(validatePerson.getWebAddress());
 		person.setId(authPerson.getId());
-		System.out.println("--------------pleaaaaaaaaaaaaaaaaaaaaaaase---------------->" + validatePerson.getName());
 		am.updatePerson(person);
-		System.out.println("--------------pleaaaaaaaaaaaaaaaaaaaaaaase---------------->" + validatePerson.getName());
 		this.authPerson = person;
 		return "authHome?faces-redirect=true";
-
 	}
 
 	public String leave() {

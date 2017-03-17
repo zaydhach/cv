@@ -8,6 +8,10 @@ public class Navigation {
 	public String hello() {
 		return "hello";
 	}
+	
+	public String addActivity() {
+		return "addActivity?faces-redirect=true";
+	}
 
 	public String showPersons() {
 		return "showPersons?faces-redirect=true";
@@ -24,5 +28,8 @@ public class Navigation {
 	public String editactivity() {
 		return "editActivity?faces-redirect=true";
 	}
+	
+
+
 
 }
