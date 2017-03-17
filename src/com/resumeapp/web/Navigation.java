@@ -24,5 +24,9 @@ public class Navigation {
 	public String editactivity() {
 		return "editActivity?faces-redirect=true";
 	}
+	
+	public String addActivity() {
+		return "addActivity?faces-redirect=true";
+	}
 
 }

@@ -21,7 +21,7 @@
 	<h:form id="form">
 		<p:panel>
 <c:set var="activityValidator" value="#{auth.validateActivity}" />
-			<h:panelGrid columns="3" cellpadding="5">
+			<p:panelGrid columns="3" cellpadding="5">
 				<h:outputLabel for="nature" value="Nature:" />
 				<p:selectOneMenu id="nature" value="#{activityValidator.nature}">
 					<f:selectItems value="#{auth.nature}" />
@@ -48,7 +48,7 @@
 					label="Adresse web" />
 				<p:message for="webAddress" />
 
-			</h:panelGrid>
+			</p:panelGrid>
 			<p:commandButton action="#{auth.addActivity()}"
 				value="Enregister les modifications"
 				icon="ui-icon-check" ajax="false">

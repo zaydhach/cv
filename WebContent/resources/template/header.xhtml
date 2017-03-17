@@ -18,8 +18,9 @@
 			<h:form>
 				<div id="search">
 
-					<p:panelGrid border="0" columns="4" cellpadding="0">
-						<h:outputText value="Titre d'activité:" />
+					<p:panelGrid styleClass="searchBar">
+						<h:outputText value="Titre d'activité:"
+							style="font-size: 28px; width:186px;" />
 						<p:inputText id="title" value="#{person.title}" required="true"
 							requiredMessage="Recherche impossible : Champ vide" />
 						<p:commandButton action="#{person.findByTitle()}" value="Chercher"
@@ -37,7 +38,8 @@
 				<c:choose>
 					<c:when test="${u.id eq null}">
 						<div id="login">
-							<p:panelGrid id="panelGrid" border="0" columns="4" cellpadding="5" >
+							<p:panelGrid id="panelGrid" border="0" columns="4"
+								cellpadding="5" styleClass="loginGrid">
 
 								<p:message for="email" />
 								<h:outputLabel for="email" value="Email:" />
@@ -55,7 +57,7 @@
 					</c:when>
 					<c:otherwise>
 						<div id="logout">
-							<p:panelGrid columns="1" cellpadding="5">
+							<p:panelGrid columns="1" cellpadding="5" styleClass="logoutGrid">
 
 								<p:outputLabel value="Bonjour, #{u.firstName} #{u.name}" />
 
