@@ -18,32 +18,35 @@
 Menu
 	<p:separator />
 
+			<h:form>
+				<ul>
 
-			<ul>
-				<li><h:link outcome="showPersons">liste des personnes</h:link></li>
-				<li><h:link outcome="authHome">Gérer mon cv</h:link></li>
-				<li><h:link outcome="addActivity">ajouter des activitées</h:link></li>
-				<li><h:form>
-						<h:commandLink action="#{auth.updateProfile()}"
-							value="modifier votre profil" />
-					</h:form></li>
-				<li><h:form>
-						<h:commandLink action="#{auth.desactivateProfil()}"
-							value="désactivez votre profil" />
-					</h:form></li>
-
-			</ul>
+					<li><h:commandLink action="#{navigation.showPersons()}"
+							value="liste des personnes" /></li>
+					<li><h:commandLink action="#{navigation.authHome()}"
+							value="Gérer mon cv" /></li>
+					<li><h:commandLink action="#{navigation.addActivity()}"
+							value="ajouter des activitées" /></li>
+					<li><h:commandLink action="#{auth.updateProfile()}"
+							value="modifier votre profil" /></li>
+					<li><h:commandLink action="#{auth.desactivateProfil()}"
+							value="désactivez votre profil" /></li>
+				</ul>
+			</h:form>
 		</p:layoutUnit>
 	</c:when>
 	<c:otherwise>
 		<p:layoutUnit styleClass="menu">
 Menu
 <p:separator />
+			<h:form>
 			<ul>
-				<li><h:link outcome="bye">bye</h:link></li>
-				<li><h:link outcome="showPersons">toutes les personnes</h:link></li>
-				<li><h:link outcome="subscribePerson">s'inscrire</h:link></li>
+				<li><h:commandLink action="#{navigation.showPersons()}"
+						value="liste des personnes" /></li>
+				<li><h:commandLink action="#{navigation.subscribePerson()}"
+						value="Inscrivez-vous !" /></li>
 			</ul>
+			</h:form>
 		</p:layoutUnit>
 	</c:otherwise>
 </c:choose>

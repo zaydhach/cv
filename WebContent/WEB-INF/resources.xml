@@ -1,9 +1,9 @@
 <resources>
 	<Resource id="myDS" type="DataSource">
 		JdbcDriver com.mysql.jdbc.Driver
-		JdbcUrl jdbc:mysql://localhost/cv
+		JdbcUrl jdbc:mysql://localhost/ResumeAPP
 		UserName root
-		Password passW0RD!!
+		Password zayd123456
 		JtaManaged false
 	</Resource>
 </resources>
