@@ -28,8 +28,7 @@ public class PersonController {
 	PersonManager pm;
 
 	PersonValidator validatePerson = new PersonValidator();
-	private String name,title;
-	
+	private String name, title;
 
 	public String getTitle() {
 		return title;
@@ -46,6 +45,7 @@ public class PersonController {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	Activity foundActivity = new Activity();
 
 	public Activity getFoundActivity() {
@@ -55,6 +55,7 @@ public class PersonController {
 	public void setFoundActivity(Activity foundActivity) {
 		this.foundActivity = foundActivity;
 	}
+
 	Person thePerson = new Person();
 	List<Person> findedPersons;
 
@@ -116,13 +117,14 @@ public class PersonController {
 
 	// registering new user
 	public String save() {
-		if (validatePerson.getName() != null) {
-			thePerson.setName(validatePerson.getName());
-			thePerson.setFirstName(validatePerson.getFirstName());
-			thePerson.setBirthday(validatePerson.getBirthday());
-			thePerson.setWebAddress(validatePerson.getWebAddress());
-			thePerson.setEmail(validatePerson.getEmail());
-			thePerson.setPassword(validatePerson.getPassword());
+
+		thePerson.setName(validatePerson.getName());
+		thePerson.setFirstName(validatePerson.getFirstName());
+		thePerson.setBirthday(validatePerson.getBirthday());
+		thePerson.setWebAddress(validatePerson.getWebAddress());
+		thePerson.setEmail(validatePerson.getEmail());
+		thePerson.setPassword(pm.MD5(validatePerson.getPassword()));
+		try{
 			pm.addPerson(thePerson);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Inscription OK", "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -132,8 +134,11 @@ public class PersonController {
 			validatePerson.setEmail(null);
 			validatePerson.setWebAddress(null);
 			validatePerson.setPassword(null);
-
+			}catch(org.apache.openjpa.persistence.EntityExistsException e){
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Votre e-mail existe deja", "");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
+
 		return "welcome?faces-redirect=true";
 	}
 
@@ -153,9 +158,9 @@ public class PersonController {
 	}
 
 	public String findByTitle() {
-		
+
 		setFindedPersons(pm.findByTitle(title));
-	
+
 		return "searchResults?faces-redirect=true";
 	}
 

@@ -34,11 +34,11 @@ public class PersonManager {
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void addPerson(Person person) {
+	public Person addPerson(Person person) throws org.apache.openjpa.persistence.EntityExistsException  {
 		if (em.find(Person.class, person.getId()) == null) {
-			em.persist(person);
-			System.out.println("persist");
+				em.persist(person);			
 		}
+		return person;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -105,6 +105,20 @@ public class PersonManager {
 		}
 		return null;
 
+	}
+
+	public String MD5(String md5) {
+		try {
+			java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+			byte[] array = md.digest(md5.getBytes());
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < array.length; ++i) {
+				sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
+			}
+			return sb.toString();
+		} catch (java.security.NoSuchAlgorithmException e) {
+		}
+		return null;
 	}
 
 }

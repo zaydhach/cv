@@ -15,6 +15,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.apache.openjpa.persistence.jdbc.Unique;
+
 @Entity()
 @Table(name = "PERSON")
 public class Person implements Serializable {
@@ -48,7 +50,7 @@ public class Person implements Serializable {
 	@Column
 	@NotNull
 	private String firstName;
-	@Column
+	@Column(unique=true)
 	@NotNull
 	private String email;
 	@Column

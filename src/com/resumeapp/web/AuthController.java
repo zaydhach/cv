@@ -120,7 +120,7 @@ public class AuthController {
 	// -----------------------Les méthodes------------------------------
 
 	public String authentification() {
-
+		password=pm.MD5(password);
 		if (am.login(email, password) != null) {
 			authPerson = am.login(email, password);
 			activities = am.showActivities(getAuthPerson());

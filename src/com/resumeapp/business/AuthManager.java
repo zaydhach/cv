@@ -21,6 +21,7 @@ public class AuthManager {
 	private Person authenPerson = new Person();
 
 	public Person login(String email, String password) throws NoResultException {
+		
 		Query query = null;
 		try {
 			query = em.createQuery("SELECT authperson FROM Person authperson WHERE authperson.email='" + email

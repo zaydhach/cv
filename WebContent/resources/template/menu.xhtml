@@ -20,18 +20,16 @@ Menu
 		
 
 			<ul>
-				<li><h:link outcome="showPersons">liste des personnes</h:link></li>
-				<li><h:link outcome="authHome">Gérer mon cv</h:link></li>
-				<li><h:link outcome="addActivity">ajouter des activitées</h:link></li>
-				<li><h:form>
-						<h:commandLink action="#{auth.updateProfile()}"
-							value="modifier votre profil" />
-					</h:form></li>
-				<li><h:form>
-						<h:commandLink action="#{auth.desactivateProfil()}"
-							value="désactivez votre profile" />
-					</h:form></li>
-
+				<h:form>
+				<li><h:commandLink action="#{navigation.showPersons()}" value="liste des personnes" /></li>
+				<li><h:commandLink action="#{navigation.authHome()}" value="mon cv" /></li>
+				<li><h:commandLink action="#{navigation.addActivity()}" value="ajouter des activitées" /></li>
+				<li><h:commandLink action="#{auth.updateProfile()}"
+						value="modifier votre profil" />
+				</li>
+				<h:commandLink action="#{auth.desactivateProfil()}"
+					value="désactivez votre profile" />
+				</h:form>
 			</ul>
 		</p:layoutUnit>
 	</c:when>
@@ -39,9 +37,10 @@ Menu
 		<p:layoutUnit id="menu">
 Menu
 			<ul>
-				<li><h:link outcome="bye">bye</h:link></li>
-				<li><h:link outcome="showPersons">toutes les personnes</h:link></li>
-				<li><h:link outcome="subscribePerson">s'inscrire</h:link></li>
+			<h:form>
+				<li><h:commandLink action="#{navigation.showPersons}" value="liste des personnes" /></li>
+				<li><h:commandLink action="#{navigation.subscribePerson}" value="Inscrivez-vous !" /></li>
+			</h:form>
 			</ul>
 		</p:layoutUnit>
 	</c:otherwise>
